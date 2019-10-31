@@ -12,10 +12,17 @@
     "watch": "hap watch"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@types/quickapp": "git+https://github.com/vivoquickapp/quickapp-types.git",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.12.1",
     "eslint-plugin-hybrid": "0.0.5",
-    "hap-toolkit": "*",
-    "@types/quickapp": "git+https://github.com/vivoquickapp/quickapp-types.git"
+    "hap-toolkit": "*"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.6.3",
+    "app-redux": "1.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
   }
 }

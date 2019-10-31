@@ -1,7 +1,18 @@
 <script>
-/**
-* 应用级别的配置，供所有页面公用
-*/
-export default {
-}
+  // const injectRef = Object.getPrototypeOf(global) || global;
+  // injectRef.regeneratorRuntime = require('@babel/runtime/regenerator');
+  import {initStorage} from 'app-redux/storage'
+  import configStore from './store'
+  const store = configStore()
+
+  /**
+   * 应用级别的配置，供所有页面公用
+   * 如果需要缓存配置，请执行完善缓存逻辑
+   */
+  export default {
+    async onCreate() {
+      // 初始化本地数据
+      await initStorage(store)
+    }
+  }
 </script>

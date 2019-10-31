@@ -1,11 +1,14 @@
 {
-  "package": "com.quick.demo",
+  "package": "com.quick.example",
   "name": "demo",
   "versionName": "1.0.0",
+  "icon": "/logo.jpeg",
   "versionCode": "1",
   "minPlatformVersion": "1020",
-  "icon": "/logo.png",
   "features": [
+    {
+      "name":"system.storage"
+    },
     {
       "name": "system.prompt"
     },
@@ -16,39 +19,14 @@
       "name": "system.shortcut"
     }
   ],
-  "permissions": [
-    {
-      "origin": "*"
-    }
-  ],
   "config": {
     "logLevel": "off"
   },
   "router": {
-    "entry": "Demo",
+    "entry": "pages/index",
     "pages": {
-      "Demo": {
+      "pages/index": {
         "component": "index"
-      },
-      "DemoDetail": {
-        "component": "index"
-      },
-      "About": {
-        "component": "index"
-      }
-    },
-    "widgets": {
-      "CardDemo": {
-        "name": "CardDemo",
-        "description": "快应用卡片展示",
-        "component": "index",
-        "path": "/CardDemo",
-        "minPlatformVersion": 1032,
-        "targetManufactorys": [
-          "vivo",
-          "xiaomi"
-        ],
-        "features": []
       }
     }
   },
@@ -57,15 +35,9 @@
     "titleBarTextColor": "#414141",
     "menu": true,
     "pages": {
-      "Demo": {
-        "titleBarText": "示例页",
-        "menu": false
-      },
-      "DemoDetail": {
-        "titleBarText": "详情页"
-      },
-      "About": {
-        "menu": false
+      "pages/index": {
+        "titleBarText": "示例",
+        "menu": true
       }
     }
   }

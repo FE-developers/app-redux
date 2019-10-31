@@ -1,0 +1,58 @@
+<template>
+    <div class='index'>
+        <div class='group'>
+            <text class='add' @click='addNum'>测试 num +</text>
+            <text>{{num}}</text>
+            <text class='reduce' @click='reduceNum'>测试 num -</text>
+        </div>
+        <div class='group'>
+            <text class='add' @click='addLocalNum'>测试 local_num +</text>
+            <text>{{local_num}}</text>
+            <text class='reduce' @click='reduceLocalNum'>测试 local_num -</text>
+        </div>
+    </div>
+</template>
+<script>
+import {connect} from 'app-redux';
+import {setNum,setLocalNum} from '../../store/actions/test.js';
+
+const store = connect(({test:{num,local_num}}) => ({
+    num,
+    local_num
+}),dispatch => ({
+    addNum(){
+        return dispatch(setNum(this.num + 1))
+    },
+    reduceNum(){
+        return dispatch(setNum(this.num - 1))
+    },
+    addLocalNum(){
+        return dispatch(setLocalNum(this.local_num + 1))
+    },
+    reduceLocalNum(){
+        return dispatch(setLocalNum(this.local_num - 1))
+    }
+}));
+
+export default store({
+    onInit() {
+        
+    }
+});
+</script>
+
+<style>
+.index{
+    flex-direction: column;
+}
+.group{
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+}
+.add,.reduce{
+    color: red;
+    margin: 0 60px;
+}
+</style>
+

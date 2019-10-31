@@ -5,9 +5,11 @@
   "extends": "eslint:recommended",
   "parser": "babel-eslint",
   "parserOptions": {
+    "experimentalDecorators": false,
     "sourceType": "module",
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
+      "legacyDecorators": true,
       "jsx": true
     }
   },
@@ -19,16 +21,13 @@
     "setTimeout": false,
     "clearTimeout": false,
     "setInterval": false,
-    "clearInterval": false
+    "clearInterval": false,
+    "Promise": true
   },
   "plugins": [
     "hybrid"
   ],
   "rules": {
-    "indent": [
-      "warn",
-      2
-    ],
     "no-console": [
       "warn",
       {
@@ -38,28 +37,6 @@
           "error"
         ]
       }
-    ],
-    "no-unused-vars": [
-      "warn",
-      {
-        "varsIgnorePattern": "prompt"
-      }
-    ],
-    "quotes": [
-      "warn",
-      "single",
-      {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true
-      }
-    ],
-    "linebreak-style": [
-      "warn",
-      "unix"
-    ],
-    "semi": [
-      "warn",
-      "never"
     ]
   }
 }
