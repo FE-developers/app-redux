@@ -18,15 +18,15 @@ const store = getStore();
  * 修饰符
  */
 export default function connect(mapState,mapDispatch){
-    
+
     // 初始状态
-    const state = mapState(store.getState());
+    const state = mapState ? mapState(store.getState()) : {};
 
     /***
      * 每次 dispatch
      * 都应该被处理
      */
-    const methods = listenDispatch(mapDispatch(store.dispatch));
+    const methods = listenDispatch(mapDispatch ? mapDispatch(store.dispatch) : {});
 
     return function(conf){
 
@@ -37,7 +37,7 @@ export default function connect(mapState,mapDispatch){
             onInit(){
                 const sub = () => {
                     // 每次执行完成执行更新操作
-                    const newState = mapState(store.getState());
+                    const newState = mapState ? mapState(store.getState()) : {};
                     if(!newState) return;
                     Object.keys(newState).forEach(name => {
                         state[name] = newState[name];
@@ -52,7 +52,7 @@ export default function connect(mapState,mapDispatch){
                 return conf.onInit && conf.onInit.call(this,...arguments);
             }
         });
-        
+
         // 使用新特性
         if(computedConf.private){
             computedConf.protected = {

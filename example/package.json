@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.6.3",
-    "app-redux": "1.0.4",
+    "app-redux": "^1.0.7",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
   }
