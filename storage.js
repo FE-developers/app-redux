@@ -19,7 +19,6 @@ export const createLocalStorage = (storage = [], storageAPI = storageAPIDefault)
           key: createKey(action.type),
           complete: () => next(action)
         });
-        return;
       } else if (isStorage) {
         console.error('当前 action 存储失败，没有设置对应的 payload');
       }
