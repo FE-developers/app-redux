@@ -55,3 +55,5 @@ export const initStorage = async (store = [], storageAPI = storageAPIDefault) =>
     });
   }
 };
+
+export const initLocalStorage = initStorage;

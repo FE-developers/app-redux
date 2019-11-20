@@ -1,6 +1,6 @@
 {
   "name": "app-redux",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "quick redux is quickapp global state  management. fully support the redux grammar[快应用redux状态管理库，完全支持redux语法，便于项目redux迁移]",
   "main": "./src/index.js",
   "directories": {},
