@@ -1,11 +1,12 @@
 {
   "name": "app-redux",
-  "version": "1.0.9",
+  "version": "2.0.1",
   "description": "quick redux is quickapp global state  management. fully support the redux grammar[快应用redux状态管理库，完全支持redux语法，便于项目redux迁移]",
-  "main": "./src/index.js",
+  "main": "./dist/index.js",
   "directories": {},
   "scripts": {
-    "build": "echo \"Error: no test specified\" && exit 1"
+    "build": "./node_modules/.bin/rollup -c scripts/build.js",
+    "dev": "./node_modules/.bin/rollup -c scripts/dev.js --watch"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,15 @@
   },
   "homepage": "https://github.com/FE-developers/quick-redux#readme",
   "dependencies": {
-    "@babel/runtime": "^7.6.3"
-  }
+    "@babel/core": "^7.7.5",
+    "core-js": "^3.5.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.7.6",
+    "rollup": "^1.27.11",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-uglify": "^6.0.4"
+  },
+  "files": ["package.json","dist"]
 }

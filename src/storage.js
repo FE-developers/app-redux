@@ -1,7 +1,4 @@
 const injectRef = Object.getPrototypeOf(global) || global;
-injectRef.regeneratorRuntime = require('@babel/runtime/regenerator');
-import storageAPIDefault from '@system.storage';
-
 export const createKey = type => `action:${type}`;
 
 // 创建本地缓存
@@ -28,13 +25,13 @@ export const createLocalStorage = (storage = [], storageAPI = storageAPIDefault)
 };
 
 // 初始化本地缓存
-export const initStorage = async (store = [], storageAPI = storageAPIDefault) => {
+export const initStorage = (store = [], storageAPI = storageAPIDefault) => {
   const storage = injectRef.storage;
-  for (let i = 0; i < storage.length; i++) {
-    const type = storage[i];
+
+  return Promise.all(storage.map(type => {
     const key = createKey(type);
 
-    const info = await new Promise(resolve => {
+    return new Promise(resolve => {
       storageAPI.get({
         key,
         success(data) {
@@ -46,14 +43,28 @@ export const initStorage = async (store = [], storageAPI = storageAPIDefault) =>
           resolve({data});
         }
       });
+    }).then(info => {
+      if (info && info.data !== undefined && info.data !== null && info.data !== '') {
+        return new Promise(resolve => {
+          try {
+            store.dispatch({
+              type,
+              payload: info.data
+            }).then(() => {
+              resolve();
+            });
+          } catch (e) {
+            store.dispatch({
+              type,
+              payload: info.data
+            });
+            resolve();
+          }
+        });
+      }
     });
 
-    // 状态请设置 boolean 或 0
-    if (info && info.data !== undefined && info.data !== null && info.data !== '') await store.dispatch({
-      type,
-      payload: info.data
-    });
-  }
+  }));
 };
 
 export const initLocalStorage = initStorage;

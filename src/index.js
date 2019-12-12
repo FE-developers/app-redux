@@ -8,7 +8,7 @@ import combineReducers from './combineReducers';
 import compose from './compose';
 import applyMiddleware from './applyMiddleware';
 import connect from './connect';
-import {initStorage,initLocalStorage,createLocalStorage} from '../storage';
+import {initStorage,initLocalStorage,createLocalStorage} from './storage';
 
 export {
     initStorage,

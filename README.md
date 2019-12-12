@@ -1,7 +1,10 @@
 # quick-redux
 
-quick redux is quickapp global state  management. fully support the redux grammar
+##### 2.0.0 概述
+- 新增华为IDE运行支持
+- 修改 StorageAPI 调用形式
 
+quick redux is quickapp global state  management. fully support the redux grammar
 快应用redux状态管理库，完全支持redux语法，便于项目redux迁移
 
 ## usage 用法
@@ -24,45 +27,40 @@ initLocalStorage(store);
 
 ### store.js
 ```javascript
-import {createStore, applyMiddleware, compose,createLocalStorage} from 'app-redux';
+import {createStore, applyMiddleware, compose} from 'app-redux';
+import {createLocalStorage} from 'app-redux';
+import storageAPIDefault from '@system.storage';
+import thunkMiddleware from 'redux-thunk';
+import rootReducer from './reducers';
+import {SET_USER_INFO} from "./constants/user";
 
-// 开启本地缓存策略，不需要可以去除
-import {createLocalStorage} from 'app-redux/storage';
-
-import thunkMiddleware from 'redux-thunk'
-import rootReducer from './reducers'
-import {createLogger} from 'redux-logger'
-import {SET_NUM,SET_LOCAL_NUM} from '../constants/test';
-
-// 需要缓存的操作名
+// 需要缓存的对象
 const actions = [
-  SET_LOCAL_NUM
+  SET_USER_INFO
 ];
 
 const middlewares = [
   thunkMiddleware,
-  createLogger(),
-  createLocalStorage(actions)
+  // createLogger(),
+  createLocalStorage(actions,storageAPIDefault)
 ];
 
 const enhancer = compose(
-  applyMiddleware(...middlewares),
-  // other store enhancers if any
+  applyMiddleware(...middlewares)
 );
 
-export default function configStore() {
+export default function configStore(){
   const store = createStore(rootReducer, enhancer);
-  
   return store;
 }
+
 ```
 
 ### app.ux
 ```html
 <script>
-  const injectRef = Object.getPrototypeOf(global) || global;
-  injectRef.regeneratorRuntime = require('@babel/runtime/regenerator');
-  import {initLocalStorage} from './store/storage'
+  import storageAPIDefault from '@system.storage';
+  import {initLocalStorage} from './store'
   import configStore from './store'
   const store = configStore()
 
@@ -73,7 +71,7 @@ export default function configStore() {
   export default {
     async onCreate() {
       // 初始化本地数据
-      await initLocalStorage(store)
+      await initStorage(store,storageAPIDefault);
     }
   }
 </script>
