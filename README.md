@@ -1,9 +1,5 @@
 # quick-redux
 
-##### 2.0.0 概述
-- 新增华为IDE运行支持
-- 修改 StorageAPI 调用形式
-
 quick redux is quickapp global state  management. fully support the redux grammar
 快应用redux状态管理库，完全支持redux语法，便于项目redux迁移
 
@@ -124,5 +120,12 @@ export default store({
 
 ```
 
+
+##### 2.0.0 概述
+- 新增华为IDE运行支持
+- 修改 StorageAPI 调用形式
+
+##### 2.0.3 
+- 修复快应用下，函数局部作用域在页面销毁时，当前connect操作被销毁
 
 

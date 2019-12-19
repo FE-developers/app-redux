@@ -1,12 +1,29 @@
+const injectRef = Object.getPrototypeOf(global) || global;
 import {getStore} from './createStore';
+
+// 全局变量，保证页面销毁时不被销毁
+if(!injectRef._FUNCTION) injectRef._FUNCTION = {};
 
 /***
  * dispatch封装
  */
 const listenDispatch = function (methods) {
+  // 快应用在页面销毁时会将关联函数一并销毁
+  // 所以这里的操作必须做一个引用关系
+  // 保证函数在页面销毁后继续函数执行
+  // 这里涉及到上个页面和下个页面函数冲突问题
   Object.keys(methods).forEach(name => {
     const fn = methods[name];
-    methods[name] = fn;
+
+    // 这里需要一个入栈出栈，保证顺序
+    if(!injectRef._FUNCTION[name]) injectRef._FUNCTION[name] = [];
+
+    injectRef._FUNCTION[name].push(fn);
+
+    // 推出,只保存最近3个页面的操作
+    while(injectRef._FUNCTION[name].length > 3) injectRef._FUNCTION[name].shift();
+
+    methods[name] = injectRef._FUNCTION[name][injectRef._FUNCTION[name].length-1];
   });
   return methods;
 };
